@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    tools {
+        go '1.20.1'
+    }
+
+    environment {
+        GO111MODULE = 'on'
+    }
+
+    stages {
+        stage('Test') {
+            steps {
+                // Get code from github repositoty
+                git 'https://github.com/Kelphils/go-webapp-sample.git'
+                sh 'go test -v ./...'
+            }
+        }
+        stage('Build our Imaage') {
+            steps {
+                script {
+                    def app = docker.build("kelphils/go-webapp-sample")
+                }
+            }
+        }
+    }
+}

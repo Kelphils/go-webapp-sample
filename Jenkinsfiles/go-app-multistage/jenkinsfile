@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Dev') {
+            steps {
+                // Get code from github repositoty
+                git 'https://github.com/Kelphils/go-webapp-sample.git'
+            }
+        }
+
+        stage('UAT') {
+            steps {
+                // Get code from github repositoty
+                git 'https://github.com/Kelphils/go-webapp-sample.git'
+            }
+        }
+    }
+}
