@@ -16,11 +16,22 @@ pipeline {
                 sh 'go test -v ./...'
             }
         }
-        stage('Build our Imaage') {
+        // stage('Build our Imaage') {
+        //     steps {
+        //         script {
+        //             def app = docker.build("kelphils/go-webapp-sample:latest")
+        //         }
+        //     }
+        // }
+        stage('Build Image') {
             steps {
-                script {
-                    def app = docker.build("kelphils/go-webapp-sample")
-                }
+                git 'https://github.com/Kelphils/go-webapp-sample.git'
+                sh 'go build .'
+            }
+        }
+        stage('Run') {
+            steps {
+                sh 'cd /var/lib/jenkins/workspace/go-docker/go-webapp-sample && go-webapp-sample &'
             }
         }
     }
